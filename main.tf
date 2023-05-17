@@ -56,28 +56,28 @@ resource "aws_security_group" "security_group" {
   }
 }
 
-resource "aws_instance" "web_instance_1" {
+resource "aws_instance" "ec2_instance_1" {
   ami                    = var.ami
   instance_type          = var.instance_type
   subnet_id              = aws_subnet.subnet_1.id
   vpc_security_group_ids = [aws_security_group.security_group.id]
 }
 
-resource "aws_instance" "web_instance_2" {
+resource "aws_instance" "ec2_instance_2" {
   ami                    = var.ami
   instance_type          = var.instance_type
   subnet_id              = aws_subnet.subnet_2.id
   vpc_security_group_ids = [aws_security_group.security_group.id]
 }
 
-resource "aws_lb" "web_elb" {
-  name               = var.elb_name
+resource "aws_lb" "my_elb" {
+  name               = var.my_elb
   internal           = false
   load_balancer_type = "application"
   subnets            = [aws_subnet.subnet_1.id, aws_subnet.subnet_2.id]
 }
 
-resource "aws_lb_listener" "web_elb_listener" {
+resource "aws_lb_listener" "my_elb_listener" {
   load_balancer_arn = aws_lb.web_elb.arn
   port              = 80
   protocol          = "HTTP"
@@ -89,7 +89,7 @@ resource "aws_lb_listener" "web_elb_listener" {
 }
 
 resource "aws_lb_target_group" "web_target_group" {
-  name     = var.target_group_name
+  name     = var.target_group
   port     = 80
   protocol = "HTTP"
   vpc_id   = aws_vpc.vpc.id
