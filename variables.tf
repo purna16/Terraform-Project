@@ -7,8 +7,8 @@ variable "subnet_2_cidr_block" {}
 variable "security_group_name" {}
 variable "ami" {}
 variable "instance_type" {}
-variable "elb_name" {}
-variable "target_group_name" {}
+variable "my_elb" {}
+variable "target_group" {}
 variable "subnet_1_availability_zone" {}
 variable "subnet_2_availability_zone" {}
 
